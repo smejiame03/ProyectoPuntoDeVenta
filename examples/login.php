@@ -26,7 +26,7 @@
             header('Location: adminestados.html');
         }
     }else{
-        header('Location: login.html');
+        header('Location: loginñ.html');
     }   
     mysqli_free_result($resul);
     mysqli_close($con);

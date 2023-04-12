@@ -1,27 +1,19 @@
-<!--
-=========================================================
-* Material Dashboard Dark Edition - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-dark
-* Copyright 2019 Creative Tim (http://www.creative-tim.com)
-
-* Coded by www.creative-tim.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+<?php
+    require 'conexion.php';
+    $con = conectar();
+    $id = $_GET['id'];
+    $consulta = "SELECT * FROM productos where IDProducto=$id ";
+    $resul = mysqli_query($con,$consulta);
+    $row = $resul->fetch_array(MYSQLI_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="icon" sizes="76x76" href="../assets/img/BanderaAntioquia.webp">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Administración de compras
+    INVENTARIO
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -29,63 +21,25 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets/demo/demo.css" rel="stylesheet" />
 </head>
-
 <body class="dark-edition">
   <div class="wrapper ">
-    <div class="sidebar" data-color="green" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
-      <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-        Tip 2: you can also add an image using data-image tag
-    -->
-      <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          PUNTO DE VENTA
+    <div class="sidebar" data-color="green" data-background-color="black" data-image="../assets/img/Compras.avif">
+      <div class="logo"><a href="" class="simple-text logo-normal">
+          MODIFICAR INVENTARIO
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item ">
-            <a class="nav-link" href="./registro.html">
+          <li class="nav-item active">
+            <a class="nav-link" href="modificarprod.php">
               <i class="material-icons">edit</i>
-              <p>Registro</p>
+              <p>Edición</p>
             </a>
           </li>
-          <li class="nav-item  ">
-            <a class="nav-link" href="./inventario.html">
-              <i class="material-icons">archive</i>
-              <p>Inventario</p>
-            </a>
-          </li>
-          <li class="nav-item active ">
-            <a class="nav-link" href="./compras.html">
-              <i class="material-icons">star</i>
-              <p>Compras</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./tables.html">
-              <i class="material-icons">content_paste</i>
-              <p>Operador punto de venta</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
-              <i class="material-icons">library_books</i>
-              <p>Administración</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./icons.html">
-              <i class="material-icons">lock</i>
-              <p>Seguridad</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./map.html">
-              <i class="material-icons">lightning</i>
-              <p>Estados del sistema</p>
+          <li class="nav-item">
+            <a class="nav-link" href="inventario.php">
+              <i class="material-icons">reply</i>
+              <p>Regresar</p>
             </a>
           </li>
         </ul>
@@ -96,7 +50,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Administración de compras</a>
+            <a class="navbar-brand" href="javascript:void(0)">Producto</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -106,13 +60,13 @@
           </button>
           <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">
-                  <i class="material-icons">person</i>
-                  <p class="d-lg-none d-md-block">
-                    Account
-                  </p>
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">info</i>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="inventario.php"><i class="material-icons">cancel</i>  Cancelar</a>
+                </div>
               </li>
             </ul>
           </div>
@@ -122,46 +76,48 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Iniciar Sesión</h4>
-                  <p class="card-category">Completar datos de autenticación</p>
+                  <div class="card-icon">
+                      <img width="60px" src=<?php echo $row['Imagen'] ?>>                
+                    </div>
                 </div>
-                <div class="card-body">
-                  <form>
+                <form method="post" action="actualizarprod.php">
+                  <input type="hidden" class="form-control" id="IDProducto" name="IDProducto" value="<?php echo $id; ?>"/>
+                  <input type="hidden" class="form-control" id="CantidadDisponible" name="CantidadDisponible" value="<?php echo $row['Imagen']; ?>"/>
+                  <div class="card-body table-responsive">
+                    <table class="table table-hover">
+                      <thead class="text-warning">
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Costo $</th>
+                        <th>Url Imagen</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><input type="text" class="form-control" id="Nombre" name="Nombre" value="<?php echo $row['Nombre']; ?>"/></td>
+                          <td><input type="text" class="form-control" id="Descripcion" name="Descripcion" value="<?php echo $row['Descripcion']; ?>"/></td>
+                          <td><input type="text" class="form-control" id="Costo" name="Costo" value="<?php echo $row['Costo']; ?>"/></td>
+                          <td><input type="text" class="form-control" id="Imagen" name="Imagen" value="<?php echo $row['Imagen']; ?>"/></td>
+                        </tr>
+                      </tbody>
+                    </table>
                     <div class="row">
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Usuario</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Contraseña</label>
-                          <input type="password" class="form-control">
+                      <div class="col-lg-8 col-md-10 ml-auto mr-auto">
+                        <div class="row">
+                          <div class="col-md-4">
+                          </div>
+                          <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary btn-block" onclick="md.showNotification('bottom','center')">Actualizar</button>
+                          </div>
+                          <div class="col-md-4">
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-primary pull-right">Ingresar</button>
-                    <div class="clearfix"></div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card card-profile">
-                <div class="card-avatar">
-                  <a href="#">
-                    <img class="img" src="../assets/img/inventario.webp" />
-                  </a>
-                </div>
-                <div class="card-body">
-                  <h6 class="card-category">Administrador de compras</h6>
-                  <p class="card-description">
-                    Dentro de tus funciones habilitadas se encuentra gestionar las cantidades del inventario de productos, y agregar cantidades a través de compras o modificarlas.
-                </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -169,27 +125,8 @@
       </div>
       <footer class="footer">
         <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="#">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  Blog
-                </a>
-              </li>
-            </ul>
-          </nav>
           <div class="copyright float-right" id="date">
-            , creador por NFT (New Future Technologies) <i class="material-icons">favorite</i>.
+            , desarrollado por NFT (New Future Technologies) <i class="material-icons">favorite</i>.
           </div>
         </div>
       </footer>
@@ -198,73 +135,6 @@
         let date = document.getElementById('date');
         date.innerHTML = '&copy; ' + x + date.innerHTML;
       </script>
-    </div>
-  </div>
-  <div class="fixed-plugin">
-    <div class="dropdown show-dropdown">
-      <a href="#" data-toggle="dropdown">
-        <i class="fa fa-cog fa-2x"> </i>
-      </a>
-      <ul class="dropdown-menu">
-        <li class="header-title"> Sidebar Filters</li>
-        <li class="adjustments-line">
-          <a href="javascript:void(0)" class="switch-trigger active-color">
-            <div class="badge-colors ml-auto mr-auto">
-              <span class="badge filter badge-purple active" data-color="purple"></span>
-              <span class="badge filter badge-azure" data-color="azure"></span>
-              <span class="badge filter badge-green" data-color="green"></span>
-              <span class="badge filter badge-warning" data-color="orange"></span>
-              <span class="badge filter badge-danger" data-color="danger"></span>
-            </div>
-            <div class="clearfix"></div>
-          </a>
-        </li>
-        <li class="header-title">Images</li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-1.jpg" alt="">
-          </a>
-        </li>
-        <li class="active">
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-2.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-3.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-4.jpg" alt="">
-          </a>
-        </li>
-        <li class="button-container">
-          <a href="https://www.creative-tim.com/product/material-dashboard-dark" target="_blank" class="btn btn-primary btn-block">Free Download</a>
-        </li>
-        <!-- <li class="header-title">Want more components?</li>
-            <li class="button-container">
-                <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
-                  Get the pro version
-                </a>
-            </li> -->
-        <li class="button-container">
-          <a href="https://demos.creative-tim.com/material-dashboard-dark/docs/2.0/getting-started/introduction.html" target="_blank" class="btn btn-default btn-block">
-            View Documentation
-          </a>
-        </li>
-        <li class="button-container github-star">
-          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard/tree/dark-edition" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
-        </li>
-        <li class="header-title">Thank you for 95 shares!</li>
-        <li class="button-container text-center">
-          <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45</button>
-          <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot; 50</button>
-          <br>
-          <br>
-        </li>
-      </ul>
     </div>
   </div>
   <!--   Core JS Files   -->
@@ -283,8 +153,6 @@
   <script src="../assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
-  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -445,6 +313,13 @@
 
         });
       });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      md.initDashboardPageCharts();
+
     });
   </script>
 </body>

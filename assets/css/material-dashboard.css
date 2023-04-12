@@ -4954,6 +4954,10 @@ tbody.collapse.show {
   border-radius: calc(0.25rem - 1px);
 }
 
+.imgProd{
+  border-radius: calc(0.25rem - 1px);
+}
+
 .card-img-top {
   width: 100%;
   border-top-left-radius: calc(0.25rem - 1px);
@@ -22130,7 +22134,6 @@ fieldset[disabled][disabled] .dark-edition .has-error .form-control,
 .mensaje_exito-activo{
   display:block;
 }
-
 
 @keyframes heartbeat {
   0% {
