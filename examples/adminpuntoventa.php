@@ -11,7 +11,7 @@
   <link rel="icon" sizes="76x76" href="../assets/img/BanderaAntioquia.webp">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    VENTAS
+    ADMIN
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -25,14 +25,26 @@
   <div class="wrapper ">
     <div class="sidebar" data-color="green" data-background-color="black" data-image="../assets/img/Compras.avif">
       <div class="logo"><a href="" class="simple-text logo-normal">
-          VENTAS
+          ADMIN PUNTO DE VENTA
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active">
-            <a class="nav-link" href="ventas.php">
+            <a class="nav-link" href="adminpuntoventa.php">
               <i class="material-icons">bookmark</i>
-              <p>Inicio</p>
+              <p>Inventario</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="adminpuntoventa1.php">
+              <i class="material-icons">bookmark</i>
+              <p>Ventas</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="adminpuntoventa2.php">
+              <i class="material-icons">bookmark</i>
+              <p>Seguridad</p>
             </a>
           </li>
         </ul>

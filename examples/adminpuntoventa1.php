@@ -1,11 +1,8 @@
 <?php
     require 'conexion.php';
-    $con = conectar();
-    $IDProducto = $_GET['idProd'];
-    $IDUsuario = $_GET['idUs'];
-    $consulta = "SELECT * FROM productos where IDProducto=$IDProducto ";
+    $con=conectar();
+    $consulta = "SELECT * FROM ventas";
     $resul = mysqli_query($con,$consulta);
-    $row = $resul->fetch_array(MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +11,7 @@
   <link rel="icon" sizes="76x76" href="../assets/img/BanderaAntioquia.webp">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    INVENTARIO
+    ADMIN
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -23,24 +20,31 @@
   <!-- CSS Files -->
   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
 </head>
+
 <body class="dark-edition">
   <div class="wrapper ">
     <div class="sidebar" data-color="green" data-background-color="black" data-image="../assets/img/Compras.avif">
       <div class="logo"><a href="" class="simple-text logo-normal">
-          MODIFICAR INVENTARIO
+          ADMIN PUNTO DE VENTA
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="adminpuntoventa.php">
+              <i class="material-icons">bookmark</i>
+              <p>Inventario</p>
+            </a>
+          </li>
           <li class="nav-item active">
-            <a class="nav-link">
-              <i class="material-icons">edit</i>
-              <p>Edición</p>
+            <a class="nav-link" href="adminpuntoventa1.php">
+              <i class="material-icons">bookmark</i>
+              <p>Ventas</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href='inventario.php?idUs=<?php echo $IDUsuario ?>'>
-              <i class="material-icons">reply</i>
-              <p>Regresar</p>
+            <a class="nav-link" href="adminpuntoventa2.php">
+              <i class="material-icons">bookmark</i>
+              <p>Seguridad</p>
             </a>
           </li>
         </ul>
@@ -51,7 +55,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Producto</a>
+            <a class="navbar-brand" href="javascript:void(0)">Información punto de venta</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -63,10 +67,13 @@
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
                 <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">info</i>
+                  <i class="material-icons">person</i>
+                  <p class="d-lg-none d-md-block">
+                    Account
+                  </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="inventario.php?idUs=<?php echo $IDUsuario ?>"><i class="material-icons">cancel</i>  Cancelar</a>
+                  <a class="dropdown-item" href="login.html"><i class="material-icons">logout</i>  Cerrar Sesión</a>
                 </div>
               </li>
             </ul>
@@ -80,47 +87,42 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <div class="card-icon">
-                      <img width="60px" src=<?php echo $row['Imagen'] ?>>                
-                    </div>
+                  <h4 class="card-title ">Ventas</h4>
+                  <p class="card-category"> Acciones realizadas en la plataforma</p>
                 </div>
-                <form method="post" action="actualizarprod.php">
-                  <input type="hidden" class="form-control" id="IDProducto" name="IDProducto" value="<?php echo $IDProducto; ?>"/>
-                  <input type="hidden" class="form-control" id="idUs" name="idUs" value="<?php echo $IDUsuario ?>"/>
-                  <input type="hidden" class="form-control" id="CantidadDisponible" name="CantidadDisponible" value="<?php echo $row['Imagen']; ?>"/>
-
-                  <div class="card-body table-responsive">
-                    <table class="table table-hover">
-                      <thead class="text-warning">
-                        <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Costo $</th>
-                        <th>Url Imagen</th>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>Fecha y Hora</th>
+                        <th>Identificación Vendedor</th>
+                        <th>Nombre Cliente</th>
+                        <th>Direccion Cliente</th>
+                        <th>Celular Cliente</th>
+                        <th>Correo Cliente</th>
+                        <th>ID Producto Vendido</th>
+                        <th>Cantidad</th>
+                        <th>Valor Total</th>
                       </thead>
+                      <?php
+                        while($row = $resul->fetch_array(MYSQLI_ASSOC)) {
+                      ?>
                       <tbody>
                         <tr>
-                          <td><input type="text" class="form-control" id="Nombre" name="Nombre" value="<?php echo $row['Nombre']; ?>"/></td>
-                          <td><input type="text" class="form-control" id="Descripcion" name="Descripcion" value="<?php echo $row['Descripcion']; ?>"/></td>
-                          <td><input type="text" class="form-control" id="Costo" name="Costo" value="<?php echo $row['Costo']; ?>"/></td>
-                          <td><input type="text" class="form-control" id="Imagen" name="Imagen" value="<?php echo $row['Imagen']; ?>"/></td>
+                          <td><?php echo $row['FechaHora'] ?></td>
+                          <td><?php echo $row['IDVendedor'] ?></td>
+                          <td><?php echo $row['Nombre'] ?></td>
+                          <td><?php echo $row['Direccion'] ?></td>
+                          <td><?php echo $row['Celular'] ?></td>
+                          <td><?php echo $row['Correo'] ?></td>
+                          <td><?php echo $row['IDProductosVendidos'] ?></td>
+                          <td><?php echo $row['Cantidad'] ?></td>
+                          <td><?php echo $row['ValorTotal'] ?></td>
                         </tr>
-                      </tbody>
+                      </tbody><?php } ?>
                     </table>
-                    <div class="row">
-                      <div class="col-lg-8 col-md-10 ml-auto mr-auto">
-                        <div class="row">
-                          <div class="col-md-4">
-                          </div>
-                          <div class="col-md-4">
-                            <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
-                          </div>
-                          <div class="col-md-4">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
@@ -156,6 +158,8 @@
   <script src="../assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
+  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../assets/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {

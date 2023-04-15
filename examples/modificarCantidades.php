@@ -38,7 +38,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="compras.php">
+            <a class="nav-link" href="compras.php?idUs=<?php echo $idUs?>">
               <i class="material-icons">reply</i>
               <p>Regresar</p>
             </a>
@@ -66,7 +66,7 @@
                   <i class="material-icons">info</i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="inventario.php"><i class="material-icons">cancel</i>  Cancelar</a>
+                  <a class="dropdown-item" href="compras.php?idUs=<?php echo $idUs?>"><i class="material-icons">cancel</i>  Cancelar</a>
                 </div>
               </li>
             </ul>

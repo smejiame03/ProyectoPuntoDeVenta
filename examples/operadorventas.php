@@ -6,7 +6,7 @@
     $resul = mysqli_query($con,$consulta);
     $User = mysqli_fetch_assoc($resul)['User'];
 
-    $consulta1 = "SELECT * FROM productos";
+    $consulta1 = "SELECT * FROM productos WHERE CantidadDisponible!=0";
     $resul = mysqli_query($con,$consulta1);
 ?>
 <!DOCTYPE html>
@@ -81,114 +81,116 @@
                 <div class="card-header card-header-primary">
                     <h4>Informacion vendedor</h4>
                 </div>
-                <form action="agregarventa.php" method="post">
-                  <input type="hidden" class="form-control" id="idUs" name="idUs" value="<?php echo $idUs; ?>"/>
-                  <div class="card-body table-responsive">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Usuario</label>
-                                    <input type="text" class="form-control" id="User" name="User" value="<?php echo $User?>" disabled/>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Identificación</label>
-                                    <input type="text" class="form-control" id="ID" name="ID" value="<?php echo $idUs?>" disabled/>
-                                </div>
-                            </div>
+                <div class="card-body table-responsive">
+                  <form action="agregarventa.php" method="post">
+                    <input type="hidden" class="form-control" id="idUs" name="idUs" value="<?php echo $idUs; ?>"/>
+                      <div class="row">
+                          <div class="col-md-3">
+                              <div class="form-group">
+                                  <label class="bmd-label-floating">Usuario</label>
+                                  <input type="text" class="form-control" id="User" name="User" value="<?php echo $User?>" disabled/>
+                              </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                                  <label class="bmd-label-floating">Identificación</label>
+                                  <input type="text" class="form-control" id="ID" name="ID" value="<?php echo $idUs?>" disabled/>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                      <div class="card-header card-header-primary">
+                          <h4>Información cliente</h4>
+                      </div>
+                      <div class="card-body table-responsive">   
+                              <div class="row">
+                                  <div class="col-md-3">
+                                      <div class="form-group">
+                                          <label class="bmd-label-floating">Nombre</label>
+                                          <input type="text" class="form-control" id="NombreCliente" name="NombreCliente" required/>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class="form-group">
+                                          <label class="bmd-label-floating">Dirección</label>
+                                          <input type="text" class="form-control" id="DireccionCliente" name="DireccionCliente" required/>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class="form-group">
+                                          <label class="bmd-label-floating">Celular</label>
+                                          <input type="text" class="form-control" id="CelularCliente" name="CelularCliente" requiered/>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class="form-group">
+                                          <label class="bmd-label-floating">Correo</label>
+                                          <input type="text" class="form-control" id="CorreoCliente" name="CorreoCliente" requiered/>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        <div class="card-header card-header-primary">
+                          <h4>Descripción de los Productos</h4>
                         </div>
-                    </div>
-                    <div class="card-header card-header-primary">
-                        <h4>Información cliente</h4>
-                    </div>
-                    <div class="card-body table-responsive">   
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating">Nombre</label>
-                                            <input type="text" class="form-control" id="NombreCliente" name="NombreCliente" required/>
+                        <div class="card-body table-responsive2">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Producto</label>
+                                                <div class="select">
+                                                  <select name="CostoProducto" id="CostoProducto" onchange="ShowSelected();">
+                                                    <?php
+                                                      while($fila = $resul->fetch_assoc()): 
+                                                        $IDProducto = $fila['IDProducto'];
+                                                        $NombreProducto = $fila['Nombre'];
+                                                        $CostoProducto = $fila['Costo']; ?>
+                                                        <option class="option-select" value="<?php echo $CostoProducto?>"><?php echo $NombreProducto?>
+                                                      <?php endwhile; ?>
+                                                  </select>
+                                                </div>
+                                              </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating">Dirección</label>
-                                            <input type="text" class="form-control" id="DireccionCliente" name="DireccionCliente" required/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating">Celular</label>
-                                            <input type="text" class="form-control" id="CelularCliente" name="CelularCliente" requiered/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating">Correo</label>
-                                            <input type="text" class="form-control" id="CorreoCliente" name="CorreoCliente" requiered/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-header card-header-primary">
-                        <h4>Descripción de los Productos</h4>
-                    </div>
-                    <div class="card-body table-responsive2">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating">Producto</label>
-                                            <div class="select">
-                                              <select name="CostoProducto" id="CostoProducto" onchange="ShowSelected();">
-                                                <?php
-                                                  while($fila = $resul->fetch_assoc()): 
-                                                    $IDProducto = $fila['IDProducto'];
-                                                    $NombreProducto = $fila['Nombre'];
-                                                    $CostoProducto = $fila['Costo']; ?>
-                                                    <option class="option-select" value="<?php echo $CostoProducto?>"><?php echo $NombreProducto?>
-                                                  <?php endwhile; ?>
-                                              </select>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                              <label class="bmd-label">Valor Unitario $</label><br>
+                                                <input type="number" class="form-control" id="IDCosto" name="IDCosto" disabled/>
                                             </div>
-                                          </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                          <label class="bmd-label">Valor Unitario $</label><br>
-                                            <input type="number" class="form-control" id="IDCosto" name="IDCosto" disabled/>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating">Cantidad</label>
-                                            <input type="number" class="form-control" id="CantidadProducto" name="CantidadProducto" requiered/>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Cantidad</label>
+                                                <input type="number" class="form-control" id="CantidadProducto" name="CantidadProducto" requiered/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating">Total $</label>
-                                            <input type="number" class="form-control" id="Total" name="Total" requiered/>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label">Total $</label><br>
+                                                <input class="form-control" style="color:black"id="Total" name="Total" readonly/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-8 col-md-10 ml-auto mr-auto">
+                            <div class="row">
+                              <!-- <div class="col-md-4">
+                                <button id="duplicar-inputs" class="btn btn-primary btn-block">Agregar producto</button>
+                              </div> -->
+                              <div class="col-md-4">
+                              </div>
+                              <div class="col-md-4">
+                              </div>
+                              <div class="col-md-4">
+                                <button type="submit" id="factura" class="btn btn-primary btn-block" disabled>Generar Factura</button>
+                              </div>
                             </div>
-                            <div class="col-lg-8 col-md-10 ml-auto mr-auto">
-                        <div class="row">
-                          <!-- <div class="col-md-4">
-                            <button id="duplicar-inputs" class="btn btn-primary btn-block">Agregar producto</button>
-                          </div> -->
-                          <div class="col-md-4">
                           </div>
-                          <div class="col-md-4">
-                            <button type="submit" class="btn btn-primary btn-block">Generar Factura</button>
-                          </div>
+                        </form>
+                        <div class="col-md-2">
+                          <button class="btn btn-primary btn-block" onclick="multiplicar()">Indicar total</button>
+                        </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </form>
-                <div class="col-md-4">
-                  <button class="btn btn-primary btn-block" onclick="multiplicar()">Indicar total</button>
-                </div>
               </div>
             </div>
           </div>
@@ -236,6 +238,7 @@
       
         //Mostrar el resultado en otro input
         document.getElementById("Total").value = resultado;
+        document.getElementById('factura').disabled = false
       }
   </script>
   <script>

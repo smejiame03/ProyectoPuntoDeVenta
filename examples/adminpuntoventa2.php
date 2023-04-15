@@ -1,52 +1,63 @@
-<!doctype html>
+<?php
+    require 'conexion.php';
+    $con=conectar();
+    $consulta = "SELECT * FROM seguridad";
+    $resul = mysqli_query($con,$consulta);
+?>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <title>Hello, world!</title>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <meta charset="utf-8" />
+  <link rel="icon" sizes="76x76" href="../assets/img/BanderaAntioquia.webp">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    ADMIN
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  <!-- Material Kit CSS -->
-  <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
 </head>
 
 <body class="dark-edition">
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="black" data-image="./assets/img/sidebar-2.jpg">
-      <!--
-      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-      Tip 2: you can also add an image using data-image tag
-  -->
-      <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
-        </a>
-      </div>
+    <div class="sidebar" data-color="green" data-background-color="black" data-image="../assets/img/Compras.avif">
+      <div class="logo"><a href="" class="simple-text logo-normal">
+          ADMIN PUNTO DE VENTA
+        </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item active  ">
-            <a class="nav-link" href="javascript:void(0)">
-              <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
+          <li class="nav-item">
+            <a class="nav-link" href="adminpuntoventa.php">
+              <i class="material-icons">bookmark</i>
+              <p>Inventario</p>
             </a>
           </li>
-          <!-- your sidebar here -->
+          <li class="nav-item">
+            <a class="nav-link" href="adminpuntoventa1.php">
+              <i class="material-icons">bookmark</i>
+              <p>Ventas</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="adminpuntoventa2.php">
+              <i class="material-icons">bookmark</i>
+              <p>Seguridad</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
+            <a class="navbar-brand" href="javascript:void(0)">Información punto de venta</a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
@@ -54,15 +65,17 @@
           </button>
           <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">
-                  <i class="material-icons">notifications</i>
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
-                    Notifications
+                    Account
                   </p>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="login.html"><i class="material-icons">logout</i>  Cerrar Sesión</a>
+                </div>
               </li>
-              <!-- your navbar here -->
             </ul>
           </div>
         </div>
@@ -70,50 +83,75 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-          <!-- your content here -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Seguridad</h4>
+                  <p class="card-category"> Acciones realizadas en la plataforma</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>Fecha y Hora</th>
+                        <th>Acción</th>
+                        <th>Usuario</th>
+                        <th>Identificación</th>
+                        <th>Cargo</th>
+                      </thead>
+                      <?php
+                        while($row = $resul->fetch_array(MYSQLI_ASSOC)) {
+                      ?>
+                      <tbody>
+                        <tr>
+                          <td><?php echo $row['FechaHora'] ?></td>
+                          <td><?php echo $row['Accion'] ?></td>
+                          <td><?php echo $row['User'] ?></td>
+                          <td><?php echo $row['IDUsuario'] ?></td>
+                          <td><?php echo $row['RolUser'] ?></td>
+                        </tr>
+                      </tbody><?php } ?>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <footer class="footer">
         <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            <script>
-              document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+          <div class="copyright float-right" id="date">
+            , desarrollado por NFT (New Future Technologies) <i class="material-icons">favorite</i>.
           </div>
-          <!-- your footer here -->
         </div>
       </footer>
+      <script>
+        const x = new Date().getFullYear();
+        let date = document.getElementById('date');
+        date.innerHTML = '&copy; ' + x + date.innerHTML;
+      </script>
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="./assets/js/core/jquery.min.js"></script>
-  <script src="./assets/js/core/popper.min.js"></script>
-  <script src="./assets/js/core/bootstrap-material-design.min.js"></script>
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
-  <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chartist JS -->
-  <script src="./assets/js/plugins/chartist.min.js"></script>
+  <script src="../assets/js/plugins/chartist.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="./assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="./assets/js/material-dashboard.js?v=2.1.0"></script>
+  <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="./assets/demo/demo.js"></script>
+  <script src="../assets/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -274,6 +312,13 @@
 
         });
       });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      md.initDashboardPageCharts();
+
     });
   </script>
 </body>

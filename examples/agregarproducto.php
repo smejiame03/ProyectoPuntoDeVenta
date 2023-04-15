@@ -60,7 +60,7 @@
                   <i class="material-icons">info</i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="inventario.php"><i class="material-icons">cancel</i>  Cancelar</a>
+                  <a class="dropdown-item" href="inventario.php?idUs=<?php echo $idUs?>"><i class="material-icons">cancel</i>  Cancelar</a>
                 </div>
               </li>
             </ul>
