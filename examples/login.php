@@ -8,25 +8,25 @@
     $Rol = $_POST['Rol'];
 
     $consulta = "SELECT * FROM registro WHERE User='$User' and Clave1Usuario='$Clave1Usuario' and Rol='$Rol'";
-
     $resul = mysqli_query($con,$consulta);
+    $id = mysqli_fetch_assoc($resul)['ID'];
     $filas = mysqli_num_rows($resul);
     if($filas){
         if($Rol == 'Administrador de inventario'){
-            header('Location: inventario.html');
+            header('Location: inventario.php?idUs='.$id);
         }elseif($Rol == 'Administrador de compras'){
-            header('Location: compras.html');
+            header('Location: compras.php?idUs='.$id);
         }elseif($Rol == 'Operador de punto de venta'){
-            header('Location: operadorventa.html');
+            header('Location: operadorventas.php?idUs='.$id);
         }elseif($Rol == 'Administrador de punto de venta'){
-            header('Location: adminventa.html');
+            header('Location: adminpuntoventa.php?idUs='.$id);
         }elseif($Rol == 'Administrador de la seguridad'){
-            header('Location: seguridad.html');
+            header('Location: seguridad.php?idUs='.$id);
         }elseif($Rol == 'Administrador de estados del sistema'){
             header('Location: adminestados.html');
         }
     }else{
-        header('Location: loginñ.html');
+        header('Location: login.html');
     }   
     mysqli_free_result($resul);
     mysqli_close($con);

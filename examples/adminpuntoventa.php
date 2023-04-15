@@ -1,11 +1,17 @@
+<?php
+    require 'conexion.php';
+    $con=conectar();
+    $consulta = "SELECT * FROM productos";
+    $resul = mysqli_query($con,$consulta);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" type="image/png" href="../assets/img/BanderaAntioquia.webp">
+  <link rel="icon" sizes="76x76" href="../assets/img/BanderaAntioquia.webp">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    PUNTO DE VENTA
+    VENTAS
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -19,20 +25,14 @@
   <div class="wrapper ">
     <div class="sidebar" data-color="green" data-background-color="black" data-image="../assets/img/Compras.avif">
       <div class="logo"><a href="" class="simple-text logo-normal">
-          PUNTO DE VENTA
+          VENTAS
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item ">
-            <a class="nav-link" href="./registro.html">
-              <i class="material-icons">edit</i>
-              <p>Registro</p>
-            </a>
-          </li>
-          <li class="nav-item active  ">
-            <a class="nav-link" href="./login.html">
-              <i class="material-icons">login</i>
-              <p>Iniciar sesión</p>
+          <li class="nav-item active">
+            <a class="nav-link" href="ventas.php">
+              <i class="material-icons">bookmark</i>
+              <p>Inicio</p>
             </a>
           </li>
         </ul>
@@ -43,7 +43,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href=""></a>
+            <a class="navbar-brand" href="javascript:void(0)">Información punto de venta</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -51,73 +51,51 @@
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
+          <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">person</i>
+                  <p class="d-lg-none d-md-block">
+                    Account
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="login.html"><i class="material-icons">logout</i>  Cerrar Sesión</a>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-8">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title">Iniciar Sesión</h4>
-                  <p class="card-category">Completar datos de autenticación</p>
-                </div>
-                <div class="card-body">
-                  <form method="post" action="login.php">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Usuario</label>
-                          <input type="text" id="User" name="User" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Contraseña</label>
-                          <input type="password" id="Clave1Usuario" name="Clave1Usuario" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <br>
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Rol</label>
-                          <div class="select">
-                            <select id="Rol" name="Rol">
-                              <option class="option-select" value="Administrador de inventario">Administrador de inventario</option>
-                              <option class="option-select" value="Administrador de compras">Administrador de compras</option>
-                              <option class="option-select" value="Operador de punto de venta">Operador de punto de venta</option>
-                              <option class="option-select" value="Administrador de punto de venta">Administrador de punto de venta</option>
-                              <option class="option-select" value="Administrador de la seguridad">Administrador de la seguridad</option>
-                            </select>
-                            <i></i>
-                          </div>
-                        </div>
-                      </div>
+            <?php
+              while($row = $resul->fetch_array(MYSQLI_ASSOC)) {
+            ?>
+              <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                  <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                      <img width="60px" src=<?php echo $row['Imagen'] ?>>                
                     </div>
-                    <button type="submit" class="btn btn-primary pull-right">Ingresar</button>
-                  </form>
+                    <h4 class="card-title"><small><?php echo $row['Nombre'] ?></small></p>
+                    <h3 class="card-category"><?php echo $row['Descripcion'] ?></h3>
+                  </div>
+                  <div class="card-footer">
+                    <div class="stats">
+                      <i class="material-icons">local_offer</i>$<?php echo $row['Costo'] ?>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="stats">
+                      <i class="material-icons">list</i>Cantidad disponible: <?php echo $row['CantidadDisponible'] ?>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card card-profile">
-                <div class="card-avatar">
-                  <a href="#">
-                    <img class="img" src="../assets/img/BanderaAntioquia.webp" />
-                  </a>
-                </div>
-                <div class="card-body">
-                  <h6 class="card-category"></h6>
-                  <p class="card-description">
-                  </p>
-                </div>
-              </div>
-            </div>
+              </div> <?php } ?>
           </div>
         </div>
       </div>

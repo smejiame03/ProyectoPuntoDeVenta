@@ -1,3 +1,6 @@
+<?php
+    $idUs = $_GET['idUs'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,13 +26,13 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active">
-            <a class="nav-link" href="modificarprod.php">
+            <a class="nav-link" href="">
               <i class="material-icons">add</i>
               <p>Agregar producto</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="inventario.php">
+            <a class="nav-link" href="inventario.php?idUs=<?php echo $idUs?>">
               <i class="material-icons">reply</i>
               <p>Regresar</p>
             </a>
@@ -68,55 +71,59 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                </div>
-                <form method="post" action="nuevoprod.php">
-                  <div class="card-body table-responsive">
-                    <table class="table table-hover">
-                      <thead class="text-warning">
-                        <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Costo $</th>
-                        <th>Url Imagen</th>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><input type="text" class="form-control" id="Nombre" name="Nombre"/></td>
-                          <td><input type="text" class="form-control" id="Descripcion" name="Descripcion"/></td>
-                          <td><input type="text" class="form-control" id="Costo" name="Costo"/></td>
-                          <td><input type="text" class="form-control" id="Imagen" name="Imagen"/></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div class="row">
-                      <div class="col-lg-8 col-md-10 ml-auto mr-auto">
-                        <div class="row">
-                          <div class="col-md-4">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header card-header-primary">
+                  </div>
+                  <br>
+                  <form method="post" action="nuevoprod.php">
+                    <input type="hidden" class="form-control" id="idUs" name="idUs" value="<?php echo $idUs; ?>"/>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Nombre</label>
+                            <input type="text" class="form-control" id="Nombre" name="Nombre" required/>
                           </div>
-                          <div class="col-md-4">
-                            <button type="submit" class="btn btn-primary btn-block" onclick="md.showNotification('bottom','center')">Guardar</button>
-                          </div>
-                          <div class="col-md-4">
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Descripción</label>
+                            <input type="text" class="form-control" id="Descripcion" name="Descripcion" required/>                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Costo $</label>
+                            <input type="text" class="form-control" id="Costo" name="Costo" required/>                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Url Imagen</label>
+                            <input type="text" class="form-control" id="Imagen" name="Imagen" required/>                          </div>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-lg-8 col-md-10 ml-auto mr-auto">
+                          <div class="row">
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                              <button type="submit" class="btn btn-primary btn-block" onclick="md.showNotification('bottom','center')">Guardar</button>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <footer class="footer">
-        <div class="container-fluid">
-          <div class="copyright float-right" id="date">
-            , desarrollado por NFT (New Future Technologies) <i class="material-icons">favorite</i>.
-          </div>
-        </div>
-      </footer>
       <script>
         const x = new Date().getFullYear();
         let date = document.getElementById('date');
@@ -310,5 +317,4 @@
     });
   </script>
 </body>
-
 </html>

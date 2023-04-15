@@ -1,11 +1,20 @@
+<?php
+    require 'conexion.php';
+    $con = conectar();
+    $IDProducto = $_GET['idProd'];
+    $idUs = $_GET['idUs'];
+    $consulta = "SELECT * FROM productos where IDProducto=$IDProducto ";
+    $resul = mysqli_query($con,$consulta);
+    $row = $resul->fetch_array(MYSQLI_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" type="image/png" href="../assets/img/BanderaAntioquia.webp">
+  <link rel="icon" sizes="76x76" href="../assets/img/BanderaAntioquia.webp">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    PUNTO DE VENTA
+    COMPRAS DE INVENTARIO
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -14,25 +23,24 @@
   <!-- CSS Files -->
   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
 </head>
-
 <body class="dark-edition">
   <div class="wrapper ">
     <div class="sidebar" data-color="green" data-background-color="black" data-image="../assets/img/Compras.avif">
       <div class="logo"><a href="" class="simple-text logo-normal">
-          PUNTO DE VENTA
+          MODIFICAR CANTIDAD
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item ">
-            <a class="nav-link" href="./registro.html">
+          <li class="nav-item active">
+            <a class="nav-link" href="modificarprod.php">
               <i class="material-icons">edit</i>
-              <p>Registro</p>
+              <p>Edición</p>
             </a>
           </li>
-          <li class="nav-item active  ">
-            <a class="nav-link" href="./login.html">
-              <i class="material-icons">login</i>
-              <p>Iniciar sesión</p>
+          <li class="nav-item">
+            <a class="nav-link" href="compras.php">
+              <i class="material-icons">reply</i>
+              <p>Regresar</p>
             </a>
           </li>
         </ul>
@@ -43,7 +51,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href=""></a>
+            <a class="navbar-brand" href="javascript:void(0)">Producto</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -51,71 +59,67 @@
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
+          <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">info</i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="inventario.php"><i class="material-icons">cancel</i>  Cancelar</a>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Iniciar Sesión</h4>
-                  <p class="card-category">Completar datos de autenticación</p>
+                  <div class="card-icon">
+                      <img width="60px" src=<?php echo $row['Imagen'] ?>>                
+                    </div>
                 </div>
-                <div class="card-body">
-                  <form method="post" action="login.php">
+                <form method="post" action="actualizarCant.php">
+                  <input type="hidden" class="form-control" id="IDProducto" name="IDProducto" value="<?php echo $IDProducto; ?>"/>
+                  <input type="hidden" class="form-control" id="idUs" name="idUs" value="<?php echo $idUs; ?>"/>
+                  <input type="hidden" class="form-control" id="CantidadDisponible" name="CantidadDisponible" value="<?php echo $row['Imagen']; ?>"/>
+                  <div class="card-body table-responsive">
+                    <table class="table table-hover">
+                      <thead class="text-warning">
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Costo $</th>
+                        <th>Unidades a Agregar</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><span type="text" class="form-control" id="Nombre" name="Nombre" title="No tienes autorización para editar este campo" contenteditable="false"><?php echo $row['Nombre']; ?></span></td>
+                          <td><span type="text" class="form-control" id="Descripcion" name="Descripcion" title="No tienes autorización para editar este campo" contenteditable="false"><?php echo $row['Descripcion']; ?></span></td>
+                          <td><span type="text" class="form-control" id="Costo" name="Costo" title="No tienes autorización para editar este campo" contenteditable="false"><?php echo $row['Costo']; ?></span></td>
+                          <td><input type="text" class="form-control" id="CantidadNueva" name="CantidadNueva" style="width:60px"/></td>
+                        </tr>
+                      </tbody>
+                    </table>
                     <div class="row">
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Usuario</label>
-                          <input type="text" id="User" name="User" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Contraseña</label>
-                          <input type="password" id="Clave1Usuario" name="Clave1Usuario" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <br>
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Rol</label>
-                          <div class="select">
-                            <select id="Rol" name="Rol">
-                              <option class="option-select" value="Administrador de inventario">Administrador de inventario</option>
-                              <option class="option-select" value="Administrador de compras">Administrador de compras</option>
-                              <option class="option-select" value="Operador de punto de venta">Operador de punto de venta</option>
-                              <option class="option-select" value="Administrador de punto de venta">Administrador de punto de venta</option>
-                              <option class="option-select" value="Administrador de la seguridad">Administrador de la seguridad</option>
-                            </select>
-                            <i></i>
+                      <div class="col-lg-8 col-md-10 ml-auto mr-auto">
+                        <div class="row">
+                          <div class="col-md-4">
+                          </div>
+                          <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary btn-block" onclick="md.showNotification('bottom','center')">Agregar nueva cantidad</button>
+                          </div>
+                          <div class="col-md-4">
                           </div>
                         </div>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-primary pull-right">Ingresar</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card card-profile">
-                <div class="card-avatar">
-                  <a href="#">
-                    <img class="img" src="../assets/img/BanderaAntioquia.webp" />
-                  </a>
-                </div>
-                <div class="card-body">
-                  <h6 class="card-category"></h6>
-                  <p class="card-description">
-                  </p>
-                </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -151,8 +155,6 @@
   <script src="../assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
-  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {

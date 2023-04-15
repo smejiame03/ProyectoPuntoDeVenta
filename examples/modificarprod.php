@@ -1,8 +1,9 @@
 <?php
     require 'conexion.php';
     $con = conectar();
-    $id = $_GET['id'];
-    $consulta = "SELECT * FROM productos where IDProducto=$id ";
+    $IDProducto = $_GET['idProd'];
+    $IDUsuario = $_GET['idUs'];
+    $consulta = "SELECT * FROM productos where IDProducto=$IDProducto ";
     $resul = mysqli_query($con,$consulta);
     $row = $resul->fetch_array(MYSQLI_ASSOC);
 ?>
@@ -31,13 +32,13 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active">
-            <a class="nav-link" href="modificarprod.php">
+            <a class="nav-link">
               <i class="material-icons">edit</i>
               <p>Edición</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="inventario.php">
+            <a class="nav-link" href='inventario.php?idUs=<?php echo $IDUsuario ?>'>
               <i class="material-icons">reply</i>
               <p>Regresar</p>
             </a>
@@ -65,7 +66,7 @@
                   <i class="material-icons">info</i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="inventario.php"><i class="material-icons">cancel</i>  Cancelar</a>
+                  <a class="dropdown-item" href="inventario.php?idUs=<?php echo $IDUsuario ?>"><i class="material-icons">cancel</i>  Cancelar</a>
                 </div>
               </li>
             </ul>
@@ -84,8 +85,10 @@
                     </div>
                 </div>
                 <form method="post" action="actualizarprod.php">
-                  <input type="hidden" class="form-control" id="IDProducto" name="IDProducto" value="<?php echo $id; ?>"/>
+                  <input type="hidden" class="form-control" id="IDProducto" name="IDProducto" value="<?php echo $IDProducto; ?>"/>
+                  <input type="hidden" class="form-control" id="idUs" name="idUs" value="<?php echo $IDUsuario ?>"/>
                   <input type="hidden" class="form-control" id="CantidadDisponible" name="CantidadDisponible" value="<?php echo $row['Imagen']; ?>"/>
+
                   <div class="card-body table-responsive">
                     <table class="table table-hover">
                       <thead class="text-warning">

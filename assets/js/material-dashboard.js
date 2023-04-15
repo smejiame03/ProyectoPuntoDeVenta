@@ -280,7 +280,7 @@ md = {
 
     $.notify({
       icon: "add_alert",
-      message: "Producto actualizado correctamente"
+      message: "Todos los campos son requeridos"
 
     }, {
       type: type[color],

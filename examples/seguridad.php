@@ -1,11 +1,18 @@
+<?php
+    require 'conexion.php';
+    $con=conectar();
+    $consulta = "SELECT * FROM seguridad";
+    $resul = mysqli_query($con,$consulta);
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <link rel="icon" type="image/png" href="../assets/img/BanderaAntioquia.webp">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    PUNTO DE VENTA
+    SEGURIDAD
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -13,26 +20,22 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
 <body class="dark-edition">
   <div class="wrapper ">
     <div class="sidebar" data-color="green" data-background-color="black" data-image="../assets/img/Compras.avif">
-      <div class="logo"><a href="" class="simple-text logo-normal">
-          PUNTO DE VENTA
+      <div class="logo"><a href="#" class="simple-text logo-normal">
+          SEGURIDAD
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item ">
-            <a class="nav-link" href="./registro.html">
-              <i class="material-icons">edit</i>
-              <p>Registro</p>
-            </a>
-          </li>
-          <li class="nav-item active  ">
-            <a class="nav-link" href="./login.html">
-              <i class="material-icons">login</i>
-              <p>Iniciar sesión</p>
+          <li class="nav-item active ">
+            <a class="nav-link" href="./tables.html">
+              <i class="material-icons">content_paste</i>
+              <p>Administrar</p>
             </a>
           </li>
         </ul>
@@ -43,7 +46,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href=""></a>
+            <a class="navbar-brand" href="javascript:void(0)">Registros</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -51,70 +54,57 @@
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
+          <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">person</i>
+                  <p class="d-lg-none d-md-block">
+                    Account
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="login.html"><i class="material-icons">logout</i>  Cerrar Sesión</a>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Iniciar Sesión</h4>
-                  <p class="card-category">Completar datos de autenticación</p>
+                  <h4 class="card-title ">Información</h4>
+                  <p class="card-category"> Acciones realizadas en la plataforma</p>
                 </div>
                 <div class="card-body">
-                  <form method="post" action="login.php">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Usuario</label>
-                          <input type="text" id="User" name="User" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Contraseña</label>
-                          <input type="password" id="Clave1Usuario" name="Clave1Usuario" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <br>
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Rol</label>
-                          <div class="select">
-                            <select id="Rol" name="Rol">
-                              <option class="option-select" value="Administrador de inventario">Administrador de inventario</option>
-                              <option class="option-select" value="Administrador de compras">Administrador de compras</option>
-                              <option class="option-select" value="Operador de punto de venta">Operador de punto de venta</option>
-                              <option class="option-select" value="Administrador de punto de venta">Administrador de punto de venta</option>
-                              <option class="option-select" value="Administrador de la seguridad">Administrador de la seguridad</option>
-                            </select>
-                            <i></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary pull-right">Ingresar</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card card-profile">
-                <div class="card-avatar">
-                  <a href="#">
-                    <img class="img" src="../assets/img/BanderaAntioquia.webp" />
-                  </a>
-                </div>
-                <div class="card-body">
-                  <h6 class="card-category"></h6>
-                  <p class="card-description">
-                  </p>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>Fecha y Hora</th>
+                        <th>Acción</th>
+                        <th>Usuario</th>
+                        <th>Identificación</th>
+                        <th>Cargo</th>
+                      </thead>
+                      <?php
+                        while($row = $resul->fetch_array(MYSQLI_ASSOC)) {
+                      ?>
+                      <tbody>
+                        <tr>
+                          <td><?php echo $row['FechaHora'] ?></td>
+                          <td><?php echo $row['Accion'] ?></td>
+                          <td><?php echo $row['User'] ?></td>
+                          <td><?php echo $row['IDUsuario'] ?></td>
+                          <td><?php echo $row['RolUser'] ?></td>
+                        </tr>
+                      </tbody><?php } ?>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -124,7 +114,7 @@
       <footer class="footer">
         <div class="container-fluid">
           <div class="copyright float-right" id="date">
-            , desarrollado por NFT (New Future Technologies) <i class="material-icons">favorite</i>.
+            , Desarrollado por NFT (New Future Technologies) <i class="material-icons">favorite</i>.
           </div>
         </div>
       </footer>
@@ -133,6 +123,73 @@
         let date = document.getElementById('date');
         date.innerHTML = '&copy; ' + x + date.innerHTML;
       </script>
+    </div>
+  </div>
+  <div class="fixed-plugin">
+    <div class="dropdown show-dropdown">
+      <a href="#" data-toggle="dropdown">
+        <i class="fa fa-cog fa-2x"> </i>
+      </a>
+      <ul class="dropdown-menu">
+        <li class="header-title"> Sidebar Filters</li>
+        <li class="adjustments-line">
+          <a href="javascript:void(0)" class="switch-trigger active-color">
+            <div class="badge-colors ml-auto mr-auto">
+              <span class="badge filter badge-purple active" data-color="purple"></span>
+              <span class="badge filter badge-azure" data-color="azure"></span>
+              <span class="badge filter badge-green" data-color="green"></span>
+              <span class="badge filter badge-warning" data-color="orange"></span>
+              <span class="badge filter badge-danger" data-color="danger"></span>
+            </div>
+            <div class="clearfix"></div>
+          </a>
+        </li>
+        <li class="header-title">Images</li>
+        <li>
+          <a class="img-holder switch-trigger" href="javascript:void(0)">
+            <img src="../assets/img/sidebar-1.jpg" alt="">
+          </a>
+        </li>
+        <li class="active">
+          <a class="img-holder switch-trigger" href="javascript:void(0)">
+            <img src="../assets/img/sidebar-2.jpg" alt="">
+          </a>
+        </li>
+        <li>
+          <a class="img-holder switch-trigger" href="javascript:void(0)">
+            <img src="../assets/img/sidebar-3.jpg" alt="">
+          </a>
+        </li>
+        <li>
+          <a class="img-holder switch-trigger" href="javascript:void(0)">
+            <img src="../assets/img/sidebar-4.jpg" alt="">
+          </a>
+        </li>
+        <li class="button-container">
+          <a href="https://www.creative-tim.com/product/material-dashboard-dark" target="_blank" class="btn btn-primary btn-block">Free Download</a>
+        </li>
+        <!-- <li class="header-title">Want more components?</li>
+            <li class="button-container">
+                <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
+                  Get the pro version
+                </a>
+            </li> -->
+        <li class="button-container">
+          <a href="https://demos.creative-tim.com/material-dashboard-dark/docs/2.0/getting-started/introduction.html" target="_blank" class="btn btn-default btn-block">
+            View Documentation
+          </a>
+        </li>
+        <li class="button-container github-star">
+          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard/tree/dark-edition" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
+        </li>
+        <li class="header-title">Thank you for 95 shares!</li>
+        <li class="button-container text-center">
+          <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45</button>
+          <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot; 50</button>
+          <br>
+          <br>
+        </li>
+      </ul>
     </div>
   </div>
   <!--   Core JS Files   -->
@@ -313,13 +370,6 @@
 
         });
       });
-    });
-  </script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      md.initDashboardPageCharts();
-
     });
   </script>
 </body>
